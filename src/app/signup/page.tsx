@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,26 +28,26 @@ export default function SignupPage() {
               Let's get you started on your math adventure!
             </CardDescription>
           </div>
-          <div className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="full-name">Full name</Label>
-              <Input id="full-name" placeholder="Alex Doe" required />
+          <form>
+            <div className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="full-name">Full name</Label>
+                <Input id="full-name" placeholder="Alex Doe" required />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="mobile">Mobile Number</Label>
+                <Input
+                  id="mobile"
+                  type="tel"
+                  placeholder="+1 234 567 890"
+                  required
+                />
+              </div>
+              <Button type="submit" className="w-full" asChild>
+                <Link href="/">Create Account</Link>
+              </Button>
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="mobile">Mobile Number</Label>
-              <Input
-                id="mobile"
-                type="tel"
-                placeholder="+1 234 567 890"
-                required
-              />
-            </div>
-            <Button type="submit" className="w-full">
-              <Link href="/" className="w-full">
-                Create Account
-              </Link>
-            </Button>
-          </div>
+          </form>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
             <Link href="/login" className="underline text-primary font-semibold">

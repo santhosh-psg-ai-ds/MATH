@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,22 +25,22 @@ export default function LoginPage() {
               Enter your mobile number to log in to your account
             </p>
           </div>
-          <div className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="mobile">Mobile Number</Label>
-              <Input
-                id="mobile"
-                type="tel"
-                placeholder="+1 234 567 890"
-                required
-              />
+          <form>
+            <div className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="mobile">Mobile Number</Label>
+                <Input
+                  id="mobile"
+                  type="tel"
+                  placeholder="+1 234 567 890"
+                  required
+                />
+              </div>
+              <Button type="submit" className="w-full" asChild>
+                <Link href="/">Login with SMS</Link>
+              </Button>
             </div>
-            <Button type="submit" className="w-full">
-              <Link href="/" className="w-full">
-                Login with SMS
-              </Link>
-            </Button>
-          </div>
+          </form>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
             <Link href="/signup" className="underline text-primary font-semibold">
