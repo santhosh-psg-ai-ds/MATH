@@ -21,32 +21,16 @@ import { useToast } from "@/hooks/use-toast";
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const [mobile, setMobile] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    // This is a simplified login for demo purposes.
-    // In a real app, you'd have a more secure method.
-    const tempEmail = `${mobile}@mathwhiz.com`;
-    // The password here is just for the demo, it is not secure.
-    // A real implementation would require a password field or a proper phone auth flow.
-    const tempPassword = 'password123'; // This won't work unless a user was created this way.
-
-    toast({
-        title: "Login Temporarily Disabled",
-        description: "Please use the sign-up page. This login is for demonstration and will be fully implemented later.",
-        variant: "destructive"
-    });
-    setLoading(false);
-    
-    // The following code is for a functional login, but it's disabled for now
-    // to guide users to the signup flow which is fully implemented.
-    /*
     try {
-      await signInWithEmailAndPassword(auth, tempEmail, tempPassword);
+      await signInWithEmailAndPassword(auth, email, password);
       toast({
         title: "Logged In!",
         description: "Welcome back!",
@@ -56,13 +40,12 @@ export default function LoginPage() {
       console.error("Error signing in: ", error);
       toast({
         title: "Error",
-        description: "Could not log you in. Please check your mobile number or sign up.",
+        description: "Could not log you in. Please check your email and password.",
         variant: "destructive",
       });
     } finally {
       setLoading(false);
     }
-    */
   };
 
   return (
@@ -73,24 +56,36 @@ export default function LoginPage() {
             <Logo className="h-12 w-12 mx-auto text-primary" />
             <h1 className="text-3xl font-bold font-headline">Welcome Back!</h1>
             <p className="text-balance text-muted-foreground">
-              Enter your mobile number to log in to your account
+              Enter your email below to log in to your account
             </p>
           </div>
           <form onSubmit={handleLogin}>
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="mobile">Mobile Number</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
-                  id="mobile"
-                  type="tel"
-                  placeholder="+1 234 567 890"
+                  id="email"
+                  type="email"
+                  placeholder="m@example.com"
                   required
-                  value={mobile}
-                  onChange={(e) => setMobile(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="grid gap-2">
+                <div className="flex items-center">
+                  <Label htmlFor="password">Password</Label>
+                </div>
+                <Input 
+                  id="password" 
+                  type="password" 
+                  required 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? 'Logging in...' : 'Login with SMS'}
+                {loading ? 'Logging in...' : 'Login'}
               </Button>
             </div>
           </form>

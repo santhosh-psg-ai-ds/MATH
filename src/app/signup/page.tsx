@@ -32,14 +32,8 @@ export default function SignupPage() {
     e.preventDefault();
     setLoading(true);
 
-    // For demonstration, we'll use email and a generated password for auth,
-    // as phone auth requires more setup (reCAPTCHA, etc.)
-    // We will use the mobile number as the email for simplicity here.
-    const tempEmail = `${mobile}@mathwhiz.com`;
-    const tempPassword = Math.random().toString(36).slice(-8); // Not secure, for demo only
-
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, tempEmail, tempPassword);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
       await updateProfile(user, {
@@ -49,6 +43,7 @@ export default function SignupPage() {
       await setDoc(doc(db, "users", user.uid), {
         fullName: fullName,
         mobileNumber: mobile,
+        email: user.email,
         uid: user.uid,
       });
 
@@ -101,6 +96,14 @@ export default function SignupPage() {
                   value={mobile}
                   onChange={(e) => setMobile(e.target.value)}
                 />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" type="email" placeholder="m@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="password">Password</Label>
+                <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? 'Creating Account...' : 'Create Account'}
