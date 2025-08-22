@@ -1,6 +1,5 @@
 
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { AuthIllustration } from "@/components/auth-illustration";
 import { Logo } from "@/components/logo";
@@ -55,30 +54,22 @@ export default function LandingPage() {
       <main className="flex-1">
         <section className="py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
-              <div className="flex flex-col justify-center space-y-4">
+            <div className="grid gap-6 lg:grid-cols-1 lg:gap-12">
+              <div className="flex flex-col justify-center space-y-4 text-center">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-headline">
                     Unlock Your Child's Inner Math Genius
                   </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                  <p className="max-w-[600px] text-muted-foreground md:text-xl mx-auto">
                     Math Whiz Kids is a fun and interactive platform designed to help 4th graders master math concepts with engaging games and quizzes.
                   </p>
                 </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
                   <Button size="lg" asChild>
                     <Link href="/dashboard">Get Started</Link>
                   </Button>
                 </div>
               </div>
-              <Image 
-                src="https://i.ibb.co/s9qB1p6/image.png" 
-                alt="Math learning illustration" 
-                width={600} 
-                height={600} 
-                className="h-auto w-full max-w-md mx-auto rounded-xl"
-                data-ai-hint="math learning"
-              />
             </div>
           </div>
         </section>
