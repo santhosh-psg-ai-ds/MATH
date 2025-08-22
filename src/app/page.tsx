@@ -1,5 +1,6 @@
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { AuthIllustration } from "@/components/auth-illustration";
 import { Logo } from "@/components/logo";
@@ -70,7 +71,14 @@ export default function LandingPage() {
                   </Button>
                 </div>
               </div>
-              <AuthIllustration className="h-auto w-full max-w-md mx-auto" />
+              <Image 
+                src="https://i.ibb.co/s9qB1p6/image.png" 
+                alt="Math learning illustration" 
+                width={600} 
+                height={600} 
+                className="h-auto w-full max-w-md mx-auto rounded-xl"
+                data-ai-hint="math learning"
+              />
             </div>
           </div>
         </section>
