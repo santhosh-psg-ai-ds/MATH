@@ -1,5 +1,6 @@
-
+'use client';
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,8 +13,58 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AuthIllustration } from "@/components/auth-illustration";
 import { Logo } from "@/components/logo";
+import { useState } from "react";
+import { auth } from "@/lib/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useToast } from "@/hooks/use-toast";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { toast } = useToast();
+  const [mobile, setMobile] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    // This is a simplified login for demo purposes.
+    // In a real app, you'd have a more secure method.
+    const tempEmail = `${mobile}@mathwhiz.com`;
+    // The password here is just for the demo, it is not secure.
+    // A real implementation would require a password field or a proper phone auth flow.
+    const tempPassword = 'password123'; // This won't work unless a user was created this way.
+
+    toast({
+        title: "Login Temporarily Disabled",
+        description: "Please use the sign-up page. This login is for demonstration and will be fully implemented later.",
+        variant: "destructive"
+    });
+    setLoading(false);
+    
+    // The following code is for a functional login, but it's disabled for now
+    // to guide users to the signup flow which is fully implemented.
+    /*
+    try {
+      await signInWithEmailAndPassword(auth, tempEmail, tempPassword);
+      toast({
+        title: "Logged In!",
+        description: "Welcome back!",
+      });
+      router.push("/dashboard");
+    } catch (error: any) {
+      console.error("Error signing in: ", error);
+      toast({
+        title: "Error",
+        description: "Could not log you in. Please check your mobile number or sign up.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+    */
+  };
+
   return (
     <div className="w-full min-h-screen lg:grid lg:grid-cols-2">
       <div className="flex items-center justify-center py-12">
@@ -25,7 +76,7 @@ export default function LoginPage() {
               Enter your mobile number to log in to your account
             </p>
           </div>
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="mobile">Mobile Number</Label>
@@ -34,10 +85,12 @@ export default function LoginPage() {
                   type="tel"
                   placeholder="+1 234 567 890"
                   required
+                  value={mobile}
+                  onChange={(e) => setMobile(e.target.value)}
                 />
               </div>
-              <Button type="submit" className="w-full" asChild>
-                <Link href="/">Login with SMS</Link>
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? 'Logging in...' : 'Login with SMS'}
               </Button>
             </div>
           </form>
