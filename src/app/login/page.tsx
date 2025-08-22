@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
   CardContent,
   CardDescription,
   CardHeader,
@@ -21,8 +20,7 @@ import { useToast } from "@/hooks/use-toast";
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [mobile, setMobile] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -30,6 +28,9 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      const email = `${mobile}@mathwhiz.com`;
+      const password = `password_${mobile}`;
+
       await signInWithEmailAndPassword(auth, email, password);
       toast({
         title: "Logged In!",
@@ -40,7 +41,7 @@ export default function LoginPage() {
       console.error("Error signing in: ", error);
       toast({
         title: "Error",
-        description: "Could not log you in. Please check your email and password.",
+        description: "Could not log you in. Please check your mobile number.",
         variant: "destructive",
       });
     } finally {
@@ -56,32 +57,20 @@ export default function LoginPage() {
             <Logo className="h-12 w-12 mx-auto text-primary" />
             <h1 className="text-3xl font-bold font-headline">Welcome Back!</h1>
             <p className="text-balance text-muted-foreground">
-              Enter your email below to log in to your account
+              Enter your mobile number to log in to your account
             </p>
           </div>
           <form onSubmit={handleLogin}>
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="mobile">Mobile Number</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
+                  id="mobile"
+                  type="tel"
+                  placeholder="+1 234 567 890"
                   required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                </div>
-                <Input 
-                  id="password" 
-                  type="password" 
-                  required 
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={mobile}
+                  onChange={(e) => setMobile(e.target.value)}
                 />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>

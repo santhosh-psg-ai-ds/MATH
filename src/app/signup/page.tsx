@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
   CardContent,
   CardDescription,
   CardHeader,
@@ -24,8 +23,6 @@ export default function SignupPage() {
   const { toast } = useToast();
   const [fullName, setFullName] = useState('');
   const [mobile, setMobile] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -33,6 +30,10 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
+      // Using mobile number to create a dummy email and password for Firebase Auth
+      const email = `${mobile}@mathwhiz.com`;
+      const password = `password_${mobile}`;
+
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
@@ -96,14 +97,6 @@ export default function SignupPage() {
                   value={mobile}
                   onChange={(e) => setMobile(e.target.value)}
                 />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="m@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? 'Creating Account...' : 'Create Account'}
