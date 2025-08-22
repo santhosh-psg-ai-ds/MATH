@@ -23,10 +23,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Logo } from "@/components/logo";
+import { SheetTitle } from "./ui/sheet";
 
 const menuItems = [
   {
-    href: "/",
+    href: "/dashboard",
     label: "Dashboard",
     icon: Home,
   },
@@ -66,6 +67,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           </SidebarHeader>
           <SidebarContent>
+             <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.label}>
